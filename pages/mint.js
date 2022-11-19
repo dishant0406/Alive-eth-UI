@@ -15,10 +15,10 @@ function Remix() {
                     <p className='text-xl'>SHARE TO ORIGINAL</p>
                 </div>
                 <div className='text-green flex items-center font-bold'>
-                    <div className='py-3 px-2 border-[1px] border-white'>0.5%</div>
-                    <div className='py-3 px-2 border-[1px] border-white'>10%</div>
-                    <div className='py-3 px-2 border-[1px] border-white'>20%</div>
-                    <div className='py-3 px-2 border-[1px] border-white'>30%</div>
+                    <div className='py-4 px-5 border-[1px] border-white'>0.5%</div>
+                    <div className='py-4 px-5 border-[1px] border-white'>10%</div>
+                    <div className='py-4 px-5 border-[1px] border-white'>20%</div>
+                    <div className='py-4 px-5 border-[1px] border-white'>30%</div>
                 </div>
             </div>
 
@@ -31,7 +31,7 @@ function Remix() {
                     <p>YOUR SHARES</p>
                 </div>
                 <div className='text-green flex items-center text-2xl font-bold'>
-                    <div className='py-[5px] px-2 border-[1px] border-white'>70%</div>
+                    <div className='py-4 px-5 border-[1px] border-white'>70%</div>
                 </div>
                 <div>
                     <button className='bg-yellow font-semibold text-black text-2xl px-3 py-[5px] border-2 border-black '>MINT</button>
