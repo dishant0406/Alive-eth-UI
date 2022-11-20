@@ -123,14 +123,24 @@
   }
   
   .MobThumbailRightBorder {
-    height: 212px;
+    height: 26.2vh;
     width: 10px;
-    clip-path: polygon(0 0, 100% 2%, 100% 100%, 0 100%);
+    border-left: #242430 1px solid;
+    clip-path: polygon(0 0, 100% 2%, 100% 100%, 0 96%);
+  }
+  .slick-arrow{
+    display: none !important;
+  }
+  .claimcard{
+    display: flex !important;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-around;
   }
   .MobThumbailBottomBorder {
     height: 10px;
     border: 1px solid #242430;
-    width: 213px;
+    width: 81.8vw;
     clip-path: polygon(0 0, 97% 0, 100% 100%, 2% 100%);
   }
   
