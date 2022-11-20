@@ -64,9 +64,9 @@ export default function SafariModal({open, setOpen, items, values, setValues, se
                       Select Track 
                     </Dialog.Title>
                     <div className="mt-2 mt-[1rem] flex w-[29rem] flex-col gap-[0.5rem] overflow-y-scroll h-[15rem]">
-                      {items.map((item)=>{
+                      {items.map((item, idx)=>{
                         return (
-                          <button onClick={()=>handleClick(item.name)} className="w-[26rem] h-[2.5rem] hover:bg-gray transition hover:text-white text-gray flex items-center justify-center border border-gray">
+                          <button key={idx} onClick={()=>handleClick(item.name)} className="w-[26rem] h-[2.5rem] hover:bg-gray transition hover:text-white text-gray flex items-center justify-center border border-gray">
                             <p className="text-lg text-center"
                             style={{ fontFamily: "Nuform Sans" }} >{item.name}</p>
                           </button> 
