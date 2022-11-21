@@ -12,8 +12,8 @@ export default function SafariModal({open, setOpen, items, values, setValues, se
     setOpen(false);
   };
 
-  const handleClick = (name) => {
-    setValues({...values, [selectedOption]:name })
+  const handleClick = (item) => {
+    setValues({...values, [selectedOption]:[item.name,item.path] })
     setOpen(false)
   }
 
@@ -50,12 +50,6 @@ export default function SafariModal({open, setOpen, items, values, setValues, se
             >
               <Dialog.Panel className="relative bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-5 sm:max-w-lg sm:w-full sm:h-full sm:p-6">
                 <div className="sm:flex sm:items-start">
-                  {/* <div className="mt-5 mx-auto flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-full sm:mx-0 sm:h-10 sm:w-10">
-                    <ExclamationIcon
-                      className="h-8 w-8 text-red"
-                      aria-hidden="true"
-                    />
-                  </div> */}
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                     <Dialog.Title
                       as="h3"
@@ -66,7 +60,7 @@ export default function SafariModal({open, setOpen, items, values, setValues, se
                     <div className="mt-2 mt-[1rem] flex w-[29rem] flex-col gap-[0.5rem] overflow-y-scroll h-[15rem]">
                       {items.map((item, idx)=>{
                         return (
-                          <button key={idx} onClick={()=>handleClick(item.name)} className="w-[26rem] h-[2.5rem] hover:bg-gray transition hover:text-white text-gray flex items-center justify-center border border-gray">
+                          <button key={idx} onClick={()=>handleClick(item)} className="w-[26rem] h-[2.5rem] hover:bg-gray transition hover:text-white text-gray flex items-center justify-center border border-gray">
                             <p className="text-lg text-center"
                             style={{ fontFamily: "Nuform Sans" }} >{item.name}</p>
                           </button> 
