@@ -105,7 +105,7 @@ const Home = () => {
         <button className='font-[Citizen-OT-Medium] flex items-center justify-center h-[4rem] w-[10rem] bg-yellow border border-gray text-[26px] text-gray font-[700]'>next</button>
       </div>
 
-      {blob !== null && <ReactPlayer onDuration={e => setDuration(e.toFixed(2))} onProgress={e => setProgress(e.playedSeconds.toFixed(2))} loop={true} url={blob} playing />}
+      {blob !== null && <ReactPlayer playsinline onDuration={e => setDuration(e.toFixed(2))} onProgress={e => setProgress(e.playedSeconds.toFixed(2))} loop={true} url={blob} playing />}
       <SafariModal values={values} setValues={setValues} selectedOption={selectedOption} items={items[selectedOption]} open={open} setOpen={setOpen} />
     </div>
   )
