@@ -9,6 +9,7 @@ const CrunkerComponent = dynamic(() => import('../packages/Modals/CrunkerCompone
 })
 
 import { useEffect } from 'react';
+import ReactPlayer from 'react-player';
 
 const songnames = [
   '/Songs/Song-Bass_(COMMERCIAL)_1.mp3',
@@ -39,6 +40,7 @@ const songnames = [
 
 const Home = () => {
   const [open, setOpen] = useState(false);
+  const [blob, setBlob] = useState(null)
   const [items, setItems] = useState({
     vocal: [{ name: 'COMMERCIAL', path: '/Songs/Song-Vocals_(COMMERCIAL)_1.mp3' }, { name: 'COMMERCIAL_NOHATE', path: '/Songs/Song-Vocals_(COMMERCIAL_NOHATE)_1.mp3' }, { name: 'EXCLUSIVE', path: '/Songs/Song-Keys_(EXCLUSIVE)_1.mp3' }, { name: 'PERSONAL', path: '/Songs/Song-Vocals_(PERSONAL)_1.mp3' }, { name: 'PERSONAL_NOHATE', path: '/Songs/Song-Vocals_(PERSONAL_NOHATE)_1.mp3' }, { name: 'PUBLIC_DOMAIN', path: '/Songs/Song-Vocals_(PUBLIC_DOMAIN)_1.mp3' }],
     guitar: [{ name: 'COMMERCIAL', path: '/Songs/Song-Keys_(COMMERCIAL)_1.mp3' }, { name: 'COMMERCIAL_NOHATE2', path: '/Songs/Song-Keys_(COMMERCIAL_NOHATE)_2.mp3' }, { name: 'COMMERCIAL_NOHATE', path: '/Songs/Song-Keys_(COMMERCIAL_NOHATE).mp3' }, { name: 'EXCLUSIVE', path: '/Songs/Song-Keys_(EXCLUSIVE)_1.mp3' }, { name: 'PERSONAL', path: '/Songs/Song-Keys_(PERSONAL)_1.mp3' }, { name: 'PERSONAL_NOHATE', path: '/Songs/Song-Keys_(PERSONAL_NOHATE)_1.mp3' }, { name: 'PUBLIC_DOMAIN', path: '/Songs/Song-Keys_(PUBLIC_DOMAIN)_1.mp3' }],
@@ -58,7 +60,7 @@ const Home = () => {
 
   return (
     <div className='bg-white relative h-[100vh] w-[100vw]'>
-      <CrunkerComponent pathArr={pathArr} setPathArr={setPathArr} values={values} />
+      <CrunkerComponent pathArr={pathArr} setBlob={setBlob} setPathArr={setPathArr} values={values} />
       <div className='flex justify-center pt-[2rem] gap-[4rem]'>
         <CustomButton onClick={() => { setSelectedOption('vocal'); setOpen(true) }} text={'Vocal'} />
         <CustomButton onClick={() => { setSelectedOption('guitar'); setOpen(true) }} text={'Guitar'} />
@@ -88,6 +90,7 @@ const Home = () => {
       <div className='w-[100vw] flex justify-center mt-[2rem]'>
         <button className='font-[Citizen-OT-Medium] flex items-center justify-center h-[4rem] w-[10rem] bg-yellow border border-gray text-[26px] text-gray font-[700]'>next</button>
       </div>
+      {blob !== null && <ReactPlayer loop={true} url={blob} playing />}
       <SafariModal values={values} setValues={setValues} selectedOption={selectedOption} items={items[selectedOption]} open={open} setOpen={setOpen} />
     </div>
   )
