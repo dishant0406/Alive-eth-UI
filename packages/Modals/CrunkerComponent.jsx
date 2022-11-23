@@ -5,7 +5,7 @@ const CrunkerComponent = ({pathArr, setPathArr, values, setBlob})=>{
   
   useEffect(() => {
 
-    setPathArr([values.vocal[1],values.guitar[1],values.bass[1],values.drum[1] ])
+    setPathArr([values.vocal[1],values.keys[1],values.bass[1],values.drum[1] ])
     
   }, [values])
 
