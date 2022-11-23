@@ -142,7 +142,7 @@ const Home = () => {
         </Link>
       </div>
 
-      {blob !== null && <ReactPlayer onDuration={e => setDuration(e.toFixed(2))} onProgress={e => setProgress(e.playedSeconds.toFixed(2))} loop={true} url={blob} playing />}
+      {blob !== null && <ReactPlayer autoPlay playsinline onDuration={e => setDuration(e.toFixed(2))} onProgress={e => setProgress(e.playedSeconds.toFixed(2))} loop={true} url={blob} playing />}
       <SafariModal values={values} setValues={setValues} selectedOption={selectedOption} items={items[selectedOption]} open={open} setOpen={setOpen} />
     </div>
   )
