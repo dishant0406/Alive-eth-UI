@@ -60,7 +60,7 @@ const Home = () => {
       router.push('/mint');
       await sendFileToIPFS();
     } else {
-      toast.error('Cant mint remix without "COMMERCIAL_NOHATE" or "COMMERCIAL" !');
+      toast('Cant mint remix without "COMMERCIAL_NOHATE" or "COMMERCIAL" !');
     }
   }
 
