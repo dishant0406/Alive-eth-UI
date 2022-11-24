@@ -8,6 +8,7 @@ import nft_license from '/assets/Main/Images/nft_license.png'
 import { useRouter } from 'next/router';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
+import axios from 'axios'
 
 
 const CrunkerComponent = dynamic(() => import('../packages/Modals/CrunkerComponent.jsx'), {
@@ -51,15 +52,44 @@ const Home = () => {
   const [blob, setBlob] = useState(null)
   const [duration, setDuration] = useState('')
   const [progress, setProgress] = useState('')
+  const [realBlob, setRealBlob] = useState()
   const router = useRouter()
 
-  const redirectToMint = () => {
+  const redirectToMint = async () => {
     if ((values.vocal[0] === 'COMMERCIAL_NOHATE' || values.vocal[0] === 'COMMERCIAL') && (values.bass[0] === 'COMMERCIAL_NOHATE' || values.bass[0] === 'COMMERCIAL') && (values.keys[0] === 'COMMERCIAL_NOHATE' || values.keys[0] === 'COMMERCIAL') && (values.drum[0] === 'COMMERCIAL_NOHATE' || values.drum[0] === 'COMMERCIAL')) {
       router.push('/mint');
+      await sendFileToIPFS();
     } else {
       toast.error('Cant mint remix without "COMMERCIAL_NOHATE" or "COMMERCIAL" !');
     }
   }
+
+  const sendFileToIPFS = async (e) => {
+    if (realBlob) {
+      try {
+        const formData = new FormData();
+        formData.append("file", realBlob);
+
+        const resFile = await axios({
+          method: "post",
+          url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
+          data: formData,
+          headers: {
+            pinata_api_key: `${process.env.NEXT_PUBLIC_PINATA_API_KEY}`,
+            pinata_secret_api_key: `${process.env.NEXT_PUBLIC_PINATA_SECRET_API_KEY}`,
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        const fileHash = `https://gateway.pinata.cloud/ipfs/${resFile.data.IpfsHash}`;
+        console.log("pinata filehash", fileHash);
+        //Take a look at your Pinata Pinned section, you will see a new file added to you list.
+      } catch (error) {
+        console.log("Error sending File to IPFS: ");
+        console.log(error);
+      }
+    }
+  };
 
   const [items, setItems] = useState({
     vocal: [{ muted: true, name: 'COMMERCIAL', path: '/Songs/Song-Vocals_(COMMERCIAL)_1.mp3' }, { muted: true, name: 'COMMERCIAL_NOHATE', path: '/Songs/Song-Vocals_(COMMERCIAL_NOHATE)_1.mp3' }, { muted: true, name: 'EXCLUSIVE', path: '/Songs/Song-Keys_(EXCLUSIVE)_1.mp3' }, { muted: true, name: 'PERSONAL', path: '/Songs/Song-Vocals_(PERSONAL)_1.mp3' }, { muted: true, name: 'PERSONAL_NOHATE', path: '/Songs/Song-Vocals_(PERSONAL_NOHATE)_1.mp3' }, { muted: true, name: 'PUBLIC_DOMAIN', path: '/Songs/Song-Vocals_(PUBLIC_DOMAIN)_1.mp3' }],
@@ -123,7 +153,7 @@ const Home = () => {
         theme="colored"
       />
       {/* Same as */}
-      <CrunkerComponent pathArr={pathArr} setBlob={setBlob} setPathArr={setPathArr} values={values} />
+      <CrunkerComponent pathArr={pathArr} setRealBlob={setRealBlob} setBlob={setBlob} setPathArr={setPathArr} values={values} />
       <div className='flex justify-center pt-[2rem] gap-[4rem]'>
         <CustomButton onClick={() => { setSelectedOption('vocal'); setOpen(true) }} text={'Vocal'} />
         <CustomButton onClick={() => { setSelectedOption('keys'); setOpen(true) }} text={'Keys'} />
