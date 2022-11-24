@@ -10,8 +10,9 @@ const CrunkerComponent = dynamic(() => import('../packages/Modals/CrunkerCompone
 })
 
 import { useEffect } from 'react';
-const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 import ReactAudioPlayer from 'react-audio-player';
+import { useRef } from 'react';
+import GetStarted from '../packages/Modals/GetStartedModal';
 
 const songnames = [
   '/Songs/Song-Bass_(COMMERCIAL)_1.mp3',
@@ -66,11 +67,35 @@ const Home = () => {
   })
   const [pathArr, setPathArr] = useState([])
 
+  const vocalRef = useRef([])
+  const guitarRef = useRef([])
+  const bassRef = useRef([])
+  const drumRef = useRef([])
 
   const [selectedOption, setSelectedOption] = useState('vocal')
 
+  const handlePlay = () => {
+    vocalRef.current.map(el => {
+      console.log(el)
+      el.audioEl.current.play()
+    })
+    guitarRef.current.map(el => {
+      console.log(el)
+      el.audioEl.current.play()
+    })
+    bassRef.current.map(el => {
+      console.log(el)
+      el.audioEl.current.play()
+    })
+    drumRef.current.map(el => {
+      console.log(el)
+      el.audioEl.current.play()
+    })
+  }
+
   return (
-    <div className='bg-white relative h-[100vh] w-[100vw]'>
+    <div className='bg-white relative pb-[2rem] min-h-[100vh] w-[100vw]'>
+
       <CrunkerComponent pathArr={pathArr} setBlob={setBlob} setPathArr={setPathArr} values={values} />
       <div className='flex justify-center pt-[2rem] gap-[4rem]'>
         <CustomButton onClick={() => { setSelectedOption('vocal'); setOpen(true) }} text={'Vocal'} />
@@ -78,7 +103,8 @@ const Home = () => {
         <CustomButton onClick={() => { setSelectedOption('bass'); setOpen(true) }} text={'Bass'} />
         <CustomButton onClick={() => { setSelectedOption('drum'); setOpen(true) }} text={'Drum'} />
       </div>
-      <div className='w-[100vw] flex justify-center mt-[4rem]'>
+      <GetStarted handlePlay={handlePlay} />
+      <div className='w-[100vw] flex justify-center mt-[3rem]'>
         <div className='min-w-[25rem] gap-[1rem] px-[1rem] h-[4rem] flex justify-center items-center border border-gray rounded-[50px]'>
           <img className={progress && `animate-spin`} src={cd.src} />
           <div className='h-[5px] w-[20rem] bg-gray'>
@@ -188,27 +214,27 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className='w-[100vw] flex justify-center mt-[2rem]'>
+      <div className='w-[100vw] flex justify-center mt-[2rem] gap-[2rem]'>
         <button className='font-[Citizen-OT-Medium] flex items-center justify-center h-[4rem] w-[10rem] bg-yellow border border-gray text-[26px] text-gray font-[700]'>next</button>
       </div>
       {
-        items.vocal.map((single) => {
-          return <ReactAudioPlayer volume={+volumes.vocal} autoPlay muted={single.muted} playsinline loop={true} src={single.path} playing />
+        items.vocal.map((single, idex) => {
+          return <ReactAudioPlayer ref={(el) => (vocalRef.current[idex] = el)} volume={+volumes.vocal} muted={single.muted} playsinline loop={true} src={single.path} />
         })
       }
       {
-        items.bass.map((single) => {
-          return <ReactAudioPlayer volume={+volumes.bass} autoPlay muted={single.muted} playsinline loop={true} src={single.path} playing />
+        items.bass.map((single, idex) => {
+          return <ReactAudioPlayer ref={(el) => (bassRef.current[idex] = el)} volume={+volumes.bass} muted={single.muted} playsinline loop={true} src={single.path} />
         })
       }
       {
-        items.drum.map((single) => {
-          return <ReactAudioPlayer volume={+volumes.drum} autoPlay muted={single.muted} playsinline loop={true} src={single.path} playing />
+        items.drum.map((single, idex) => {
+          return <ReactAudioPlayer ref={(el) => (drumRef.current[idex] = el)} volume={+volumes.drum} muted={single.muted} playsinline loop={true} src={single.path} />
         })
       }
       {
-        items.guitar.map((single) => {
-          return <ReactAudioPlayer volume={+volumes.guitar} autoPlay muted={single.muted} playsinline loop={true} src={single.path} playing />
+        items.guitar.map((single, idex) => {
+          return <ReactAudioPlayer ref={(el) => (guitarRef.current[idex] = el)} volume={+volumes.guitar} muted={single.muted} playsinline loop={true} src={single.path} />
         })
       }
 
