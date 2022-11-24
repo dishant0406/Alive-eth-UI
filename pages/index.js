@@ -9,13 +9,15 @@ import { useRouter } from 'next/router';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 
+
 const CrunkerComponent = dynamic(() => import('../packages/Modals/CrunkerComponent.jsx'), {
   ssr: false
 })
 
 import { useEffect } from 'react';
-import ReactPlayer from 'react-player';
-import Image from 'next/image';
+import ReactAudioPlayer from 'react-audio-player';
+import { useRef } from 'react';
+import GetStarted from '../packages/Modals/GetStartedModal';
 import Link from 'next/link';
 
 const songnames = [
@@ -60,10 +62,10 @@ const Home = () => {
   }
 
   const [items, setItems] = useState({
-    vocal: [{ name: 'COMMERCIAL', path: '/Songs/Song-Vocals_(COMMERCIAL)_1.mp3' }, { name: 'COMMERCIAL_NOHATE', path: '/Songs/Song-Vocals_(COMMERCIAL_NOHATE)_1.mp3' }, { name: 'EXCLUSIVE', path: '/Songs/Song-Keys_(EXCLUSIVE)_1.mp3' }, { name: 'PERSONAL', path: '/Songs/Song-Vocals_(PERSONAL)_1.mp3' }, { name: 'PERSONAL_NOHATE', path: '/Songs/Song-Vocals_(PERSONAL_NOHATE)_1.mp3' }, { name: 'PUBLIC_DOMAIN', path: '/Songs/Song-Vocals_(PUBLIC_DOMAIN)_1.mp3' }],
-    keys: [{ name: 'COMMERCIAL', path: '/Songs/Song-Keys_(COMMERCIAL)_1.mp3' }, { name: 'COMMERCIAL_NOHATE2', path: '/Songs/Song-Keys_(COMMERCIAL_NOHATE)_2.mp3' }, { name: 'COMMERCIAL_NOHATE', path: '/Songs/Song-Keys_(COMMERCIAL_NOHATE).mp3' }, { name: 'EXCLUSIVE', path: '/Songs/Song-Keys_(EXCLUSIVE)_1.mp3' }, { name: 'PERSONAL', path: '/Songs/Song-Keys_(PERSONAL)_1.mp3' }, { name: 'PERSONAL_NOHATE', path: '/Songs/Song-Keys_(PERSONAL_NOHATE)_1.mp3' }, { name: 'PUBLIC_DOMAIN', path: '/Songs/Song-Keys_(PUBLIC_DOMAIN)_1.mp3' }],
-    bass: [{ name: 'COMMERCIAL', path: '/Songs/Song-Bass_(COMMERCIAL)_1.mp3' }, { name: 'EXCLUSIVE', path: '/Songs/Song-Bass_(EXCLUSIVE)_1.mp3' }, { name: 'PERSONAL', path: '/Songs/Song-Bass_(PERSONAL)_1.mp3' }, { name: 'PERSONAL_NOHATE', path: '/Songs/Song-Bass_(PERSONAL_NOHATE)_1.mp3' }, { name: 'PUBLIC_DOMAIN', path: '/Songs/Song-Bass_(PUBLIC_DOMAIN)_1.mp3' }],
-    drum: [{ name: 'COMMERCIAL', path: '/Songs/Song-Drums_(COMMERCIAL)_1.mp3' }, { name: 'COMMERCIAL_NOHATE', path: '/Songs/Song-Drums_(COMMERCIAL_NOHATE)_1.mp3' }, { name: 'EXCLUSIVE', path: '/Songs/Song-Drums_(EXCLUSIVE)_1.mp3' }, { name: 'PERSONAL', path: '/Songs/Song-Drums_(PERSONAL)_1.mp3' }, { name: 'PERSONAL_NOHATE', path: '/Songs/Song-Drums_(PERSONAL_NOHATE)_1.mp3' }, { name: 'PUBLIC_DOMAIN', path: '/Songs/Song-Vocals_(PUBLIC_DOMAIN)_1.mp3' }],
+    vocal: [{ muted: true, name: 'COMMERCIAL', path: '/Songs/Song-Vocals_(COMMERCIAL)_1.mp3' }, { muted: true, name: 'COMMERCIAL_NOHATE', path: '/Songs/Song-Vocals_(COMMERCIAL_NOHATE)_1.mp3' }, { muted: true, name: 'EXCLUSIVE', path: '/Songs/Song-Keys_(EXCLUSIVE)_1.mp3' }, { muted: true, name: 'PERSONAL', path: '/Songs/Song-Vocals_(PERSONAL)_1.mp3' }, { muted: true, name: 'PERSONAL_NOHATE', path: '/Songs/Song-Vocals_(PERSONAL_NOHATE)_1.mp3' }, { muted: true, name: 'PUBLIC_DOMAIN', path: '/Songs/Song-Vocals_(PUBLIC_DOMAIN)_1.mp3' }],
+    keys: [{ muted: true, name: 'COMMERCIAL', path: '/Songs/Song-Keys_(COMMERCIAL)_1.mp3' }, { muted: true, name: 'COMMERCIAL_NOHATE', path: '/Songs/Song-Keys_(COMMERCIAL_NOHATE).mp3' }, { muted: true, name: 'EXCLUSIVE', path: '/Songs/Song-Keys_(EXCLUSIVE)_1.mp3' }, { muted: true, name: 'PERSONAL', path: '/Songs/Song-Keys_(PERSONAL)_1.mp3' }, { muted: true, name: 'PERSONAL_NOHATE', path: '/Songs/Song-Keys_(PERSONAL_NOHATE)_1.mp3' }, { muted: true, name: 'PUBLIC_DOMAIN', path: '/Songs/Song-Keys_(PUBLIC_DOMAIN)_1.mp3' }],
+    bass: [{ muted: true, name: 'COMMERCIAL', path: '/Songs/Song-Bass_(COMMERCIAL)_1.mp3' }, { muted: true, name: 'COMMERCIAL_NOHATE', path: '/Songs/Song-Keys_(COMMERCIAL_NOHATE)_2.mp3' }, { muted: true, name: 'EXCLUSIVE', path: '/Songs/Song-Bass_(EXCLUSIVE)_1.mp3' }, { muted: true, name: 'PERSONAL', path: '/Songs/Song-Bass_(PERSONAL)_1.mp3' }, { muted: true, name: 'PERSONAL_NOHATE', path: '/Songs/Song-Bass_(PERSONAL_NOHATE)_1.mp3' }, { muted: true, name: 'PUBLIC_DOMAIN', path: '/Songs/Song-Bass_(PUBLIC_DOMAIN)_1.mp3' }],
+    drum: [{ muted: true, name: 'COMMERCIAL', path: '/Songs/Song-Drums_(COMMERCIAL)_1.mp3' }, { muted: true, name: 'COMMERCIAL_NOHATE', path: '/Songs/Song-Drums_(COMMERCIAL_NOHATE)_1.mp3' }, { muted: true, name: 'EXCLUSIVE', path: '/Songs/Song-Drums_(EXCLUSIVE)_1.mp3' }, { muted: true, name: 'PERSONAL', path: '/Songs/Song-Drums_(PERSONAL)_1.mp3' }, { muted: true, name: 'PERSONAL_NOHATE', path: '/Songs/Song-Drums_(PERSONAL_NOHATE)_1.mp3' }, { muted: true, name: 'PUBLIC_DOMAIN', path: '/Songs/Song-Vocals_(PUBLIC_DOMAIN)_1.mp3' }],
   })
   const [values, setValues] = useState({
     vocal: ['', ''],
@@ -71,10 +73,40 @@ const Home = () => {
     bass: ['', ''],
     drum: ['', '']
   })
+
+  const [volumes, setVolumes] = useState({
+    vocal: 1,
+    keys: 1,
+    bass: 1,
+    drum: 1,
+  })
   const [pathArr, setPathArr] = useState([])
 
+  const vocalRef = useRef([])
+  const guitarRef = useRef([])
+  const bassRef = useRef([])
+  const drumRef = useRef([])
 
   const [selectedOption, setSelectedOption] = useState('vocal')
+
+  const handlePlay = () => {
+    vocalRef.current.map(el => {
+      console.log(el)
+      el.audioEl.current.play()
+    })
+    guitarRef.current.map(el => {
+      console.log(el)
+      el.audioEl.current.play()
+    })
+    bassRef.current.map(el => {
+      console.log(el)
+      el.audioEl.current.play()
+    })
+    drumRef.current.map(el => {
+      console.log(el)
+      el.audioEl.current.play()
+    })
+  }
 
   return (
     <div className='bg-white relative h-full w-[100vw]'>
@@ -98,7 +130,8 @@ const Home = () => {
         <CustomButton onClick={() => { setSelectedOption('bass'); setOpen(true) }} text={'Bass'} />
         <CustomButton onClick={() => { setSelectedOption('drum'); setOpen(true) }} text={'Drum'} />
       </div>
-      <div className='w-[100vw] flex justify-center mt-[4rem]'>
+      <GetStarted handlePlay={handlePlay} />
+      <div className='w-[100vw] flex justify-center mt-[3rem]'>
         <div className='min-w-[25rem] gap-[1rem] px-[1rem] h-[4rem] flex justify-center items-center border border-gray rounded-[50px]'>
           <img className={progress && `animate-spin`} src={cd.src} />
           <div className='h-[5px] w-[20rem] bg-gray'>
@@ -114,19 +147,98 @@ const Home = () => {
 
           <div className='flex gap-[1rem] items-center'>
             <div className='font-[Citizen-OT-Medium] text-[26px] text-gray font-[700]'>Vocal</div>
-            <div className='h-[3rem] border border-gray px-[0.5rem] font-[Citizen-OT-Medium] text-[24px] text-gray font-[500] w-[30rem] flex items-center'>{values.vocal[0]}</div>
+            <div className='h-[3rem] border border-gray px-[0.5rem] font-[Citizen-OT-Medium] text-[24px] text-gray font-[500] w-[25rem] flex items-center'>{values.vocal[0]}</div>
+            <div className="relative bg-white pt-1">
+              <input
+                value={volumes.vocal}
+                max={1}
+                min={0}
+                step={0.1}
+                onChange={(e) => setVolumes({ ...volumes, vocal: e.target.value })}
+                type="range"
+                className="
+                form-range
+                w-full
+                accent-red
+                h-6
+                p-0
+                bg-white
+                    "
+                id="customRange1"
+              />
+            </div>
           </div>
           <div className='flex gap-[1rem] items-center'>
-            <div className='font-[Citizen-OT-Medium] text-[26px] text-gray font-[700]'>Keys</div>
-            <div className='h-[3rem] border border-gray px-[0.5rem] font-[Citizen-OT-Medium] text-[24px] text-gray font-[500] w-[30rem] flex items-center'>{values.keys[0]}</div>
+            <div className='font-[Citizen-OT-Medium] text-[26px] text-gray font-[700]'>keys</div>
+            <div className='h-[3rem] border border-gray px-[0.5rem] font-[Citizen-OT-Medium] text-[24px] text-gray font-[500] w-[25rem] flex items-center'>{values.keys[0]}</div>
+            <div className="relative bg-white pt-1">
+              <input
+                type="range"
+                value={volumes.keys}
+                max={1}
+                min={0}
+                step={0.1}
+                onChange={(e) => setVolumes({ ...volumes, keys: e.target.value })}
+                className="
+                form-range
+                w-full
+                accent-red
+                h-6
+                p-0
+                bg-white
+
+                    "
+                id="customRange1"
+              />
+            </div>
           </div>
           <div className='flex gap-[1rem] items-center'>
             <div className='font-[Citizen-OT-Medium] text-[26px] text-gray font-[700]'>Bass</div>
-            <div className='h-[3rem] border border-gray px-[0.5rem] font-[Citizen-OT-Medium] text-[24px] text-gray font-[500] w-[30rem] flex items-center'>{values.bass[0]}</div>
+            <div className='h-[3rem] border border-gray px-[0.5rem] font-[Citizen-OT-Medium] text-[24px] text-gray font-[500] w-[25rem] flex items-center'>{values.bass[0]}</div>
+            <div className="relative bg-white pt-1">
+              <input
+                type="range"
+                value={volumes.bass}
+                max={1}
+                min={0}
+                step={0.1}
+                onChange={(e) => setVolumes({ ...volumes, bass: e.target.value })}
+                className="
+                form-range
+                w-full
+                accent-red
+                h-6
+                p-0
+                bg-white
+
+                    "
+                id="customRange1"
+              />
+            </div>
           </div>
           <div className='flex gap-[1rem] items-center'>
             <div className='font-[Citizen-OT-Medium] text-[26px] text-gray font-[700]'>Drum</div>
-            <div className='h-[3rem] border border-gray px-[0.5rem] font-[Citizen-OT-Medium] text-[24px] text-gray font-[500] w-[30rem] flex items-center'>{values.drum[0]}</div>
+            <div className='h-[3rem] border border-gray px-[0.5rem] font-[Citizen-OT-Medium] text-[24px] text-gray font-[500] w-[25rem] flex items-center'>{values.drum[0]}</div>
+            <div className="relative bg-white pt-1">
+              <input
+                type="range"
+                value={volumes.drum}
+                max={1}
+                min={0}
+                step={0.1}
+                onChange={(e) => setVolumes({ ...volumes, drum: e.target.value })}
+                className="
+                form-range
+                w-full
+                accent-red
+                h-6
+                p-0
+                bg-white
+
+                    "
+                id="customRange1"
+              />
+            </div>
           </div>
 
         </div>
@@ -141,9 +253,28 @@ const Home = () => {
           <p className='text-sm text-[#6F3EAA] cursor-pointer'>click here to know more...</p>
         </Link>
       </div>
+      {
+        items.vocal.map((single, idex) => {
+          return <ReactAudioPlayer ref={(el) => (vocalRef.current[idex] = el)} volume={+volumes.vocal} muted={single.muted} playsinline loop={true} src={single.path} />
+        })
+      }
+      {
+        items.bass.map((single, idex) => {
+          return <ReactAudioPlayer ref={(el) => (bassRef.current[idex] = el)} volume={+volumes.bass} muted={single.muted} playsinline loop={true} src={single.path} />
+        })
+      }
+      {
+        items.drum.map((single, idex) => {
+          return <ReactAudioPlayer ref={(el) => (drumRef.current[idex] = el)} volume={+volumes.drum} muted={single.muted} playsinline loop={true} src={single.path} />
+        })
+      }
+      {
+        items.keys.map((single, idex) => {
+          return <ReactAudioPlayer ref={(el) => (guitarRef.current[idex] = el)} volume={+volumes.keys} muted={single.muted} playsinline loop={true} src={single.path} />
+        })
+      }
 
-      {blob !== null && <ReactPlayer autoPlay playsinline onDuration={e => setDuration(e.toFixed(2))} onProgress={e => setProgress(e.playedSeconds.toFixed(2))} loop={true} url={blob} playing />}
-      <SafariModal values={values} setValues={setValues} selectedOption={selectedOption} items={items[selectedOption]} open={open} setOpen={setOpen} />
+      <SafariModal setItems={setItems} values={values} setValues={setValues} selectedOption={selectedOption} allItems={items} items={items[selectedOption]} open={open} setOpen={setOpen} />
     </div>
   )
 }
