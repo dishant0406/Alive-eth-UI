@@ -255,22 +255,22 @@ const Home = () => {
       </div>
       {
         items.vocal.map((single, idex) => {
-          return <ReactAudioPlayer ref={(el) => (vocalRef.current[idex] = el)} volume={+volumes.vocal} muted={single.muted} playsinline loop={true} src={single.path} />
+          return <ReactAudioPlayer key={idex} ref={(el) => (vocalRef.current[idex] = el)} volume={+volumes.vocal} muted={single.muted} playsinline loop={true} src={single.path} />
         })
       }
       {
         items.bass.map((single, idex) => {
-          return <ReactAudioPlayer ref={(el) => (bassRef.current[idex] = el)} volume={+volumes.bass} muted={single.muted} playsinline loop={true} src={single.path} />
+          return <ReactAudioPlayer key={idex} ref={(el) => (bassRef.current[idex] = el)} volume={+volumes.bass} muted={single.muted} playsinline loop={true} src={single.path} />
         })
       }
       {
         items.drum.map((single, idex) => {
-          return <ReactAudioPlayer ref={(el) => (drumRef.current[idex] = el)} volume={+volumes.drum} muted={single.muted} playsinline loop={true} src={single.path} />
+          return <ReactAudioPlayer key={idex} ref={(el) => (drumRef.current[idex] = el)} volume={+volumes.drum} muted={single.muted} playsinline loop={true} src={single.path} />
         })
       }
       {
         items.keys.map((single, idex) => {
-          return <ReactAudioPlayer ref={(el) => (guitarRef.current[idex] = el)} volume={+volumes.keys} muted={single.muted} playsinline loop={true} src={single.path} />
+          return <ReactAudioPlayer key={idex} ref={(el) => (guitarRef.current[idex] = el)} volume={+volumes.keys} muted={single.muted} playsinline loop={true} src={single.path} />
         })
       }
 
