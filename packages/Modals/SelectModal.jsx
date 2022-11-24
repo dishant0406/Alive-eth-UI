@@ -4,7 +4,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { ExclamationIcon } from '@heroicons/react/outline';
 
 
-export default function SafariModal({open, setOpen, items, values, setValues, selectedOption}) {
+export default function SafariModal({open,setItems,allItems, setOpen, items, values, setValues, selectedOption}) {
 
   const cancelButtonRef = useRef(null);
 
@@ -15,6 +15,22 @@ export default function SafariModal({open, setOpen, items, values, setValues, se
   const handleClick = (item) => {
     setValues({...values, [selectedOption]:[item.name,item.path] })
     setOpen(false)
+    let arr = [...allItems[selectedOption]]
+
+    arr=arr.map((arItem)=>{
+       return {...arItem, muted:true}
+    })
+
+    let arrnew = arr.map((arItem)=>{
+      if(arItem.name===item.name){
+        return {...arItem,muted:false }
+      }
+      else{
+        return {...arItem}
+      }
+    })
+
+    setItems({...allItems, [selectedOption]:arrnew})
   }
 
   return (
