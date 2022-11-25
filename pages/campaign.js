@@ -38,15 +38,15 @@ const Campaign = () => {
 
   return (
     <div className='h-[100vh] flex flex-col justify-start w-[100vw] bg-white'>
-      <div className='w-[100vw] h-[370px] justify-center gap-[2rem] mb-[27px] flex flex-col items-center bg-gray alivebottomborderMobReaverse'>
-        <div className='w-[100vw] mt-[1rem]  flex justify-center'>
+      <div className='w-[100vw] h-[370px] justify-start pt-[24px] gap-[24px] mb-[27px] flex flex-col items-center bg-gray alivebottomborderMobReaverse'>
+        <div className='w-[100vw]  flex justify-center'>
           <Image height={logo.height} alt='Alive Logo' width={logo.width} src={logo.src} />
         </div>
         {isMobile && <div className='relative'>
           <img src={card.src} />
           <div style={{ backgroundImage: `url(${sampleImage.src})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center' }} className='w-[348px] absolute top-[8px] left-[8px] h-[222px] bg-gray'></div>
-          <button className='flex absolute px-[0.5rem] text-gray left-[116px] h-[36px] bottom-[36px] font-[700] gap-[0.5rem] bg-yellow justify-center font-[Citizen-OT-Medium] text-[18px]  items-center'>
-            <Image src={notification.src} height={notification.height} width={'25'} alt='Notification Icon' />
+          <button style={{ letterSpacing: '0.02em' }} className='flex absolute px-[0.5rem] text-gray left-[116px] h-[36px] bottom-[36px] font-[700] gap-[0.5rem] bg-yellow justify-center font-[Citizen-OT-Medium] text-[18px]  items-center'>
+            <Image src={notification.src} height={20} width={20} alt='Notification Icon' />
             get notified
           </button>
         </div>
