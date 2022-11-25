@@ -5,6 +5,7 @@ import Rocket from '/assets/Main/Images/Rocketc.svg'
 import sampleImage from '/assets/Main/Images/image2.png'
 import notification from '/assets/Main/Images/notifications.svg'
 import Star from '/assets/Main/Images/Star.svg'
+import card from '/assets/Main/Images/card.svg'
 import { useState } from 'react';
 import { useEffect } from 'react';
 
@@ -37,20 +38,19 @@ const Campaign = () => {
 
   return (
     <div className='h-[100vh] flex flex-col justify-between w-[100vw] bg-white'>
-      <div className='w-[100vw] h-[45vh] flex flex-col items-center bg-gray alivebottomborderMob'>
+      <div className='w-[100vw] h-[370px] justify-center gap-[2rem] flex flex-col items-center bg-gray alivebottomborderMob'>
         <div className='w-[100vw] mt-[1rem]  flex justify-center'>
           <Image height={logo.height} alt='Alive Logo' width={logo.width} src={logo.src} />
         </div>
-        {isMobile && <div className='w-[80vw] flex items-center justify-center relative my-[2rem] h-[25vh] bg-white'>
-          <div className='MobThumbailBottomBorder bg-white bottom-[-10px] left-[0] absolute' />
-          <div className='MobThumbailRightBorder bg-white right-[-10px] top-[0] absolute' />
-          <div style={{ backgroundImage: `url(${sampleImage.src})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center' }} className='h-[24vh] relative w-[76vw]'>
-            <button className='flex absolute bottom-[1.25rem] left-[25%] font-[700] gap-[0.5rem] bg-yellow justify-center font-[Citizen-OT-Medium] text-[18px] py-[0.3rem] px-[0.5rem] items-center'>
-              <Image src={notification.src} height={notification.height} width={'25'} alt='Notification Icon' />
-              get notified
-            </button>
-          </div>
-        </div>}
+        {isMobile && <div className='relative'>
+          <img src={card.src} />
+          <div style={{ backgroundImage: `url(${sampleImage.src})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center' }} className='w-[348px] absolute top-[8px] left-[8px] h-[222px] bg-gray'></div>
+          <button className='flex absolute px-[0.5rem] text-gray left-[116px] h-[36px] bottom-[36px] font-[700] gap-[0.5rem] bg-yellow justify-center font-[Citizen-OT-Medium] text-[18px]  items-center'>
+            <Image src={notification.src} height={notification.height} width={'25'} alt='Notification Icon' />
+            get notified
+          </button>
+        </div>
+        }
       </div>
       <div className='w-[100%] flex justify-center'>
         <Slider {...settings} className='w-[20rem] h-[10rem] '>
