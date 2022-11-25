@@ -1,7 +1,7 @@
 import Crunker from "crunker";
 import { useEffect } from 'react';
 
-const CrunkerComponent = ({pathArr, setPathArr, values, setBlob})=>{
+const CrunkerComponent = ({pathArr, setPathArr, values, setBlob, setRealBlob})=>{
   
   useEffect(() => {
 
@@ -21,6 +21,7 @@ const CrunkerComponent = ({pathArr, setPathArr, values, setBlob})=>{
       .then((buffers) => crunker.mergeAudio(buffers))
       .then((merged) => crunker.export(merged, 'audio/mp3'))
       .then((output) => {
+       setRealBlob(output.blob)
        setBlob(URL.createObjectURL(output.blob))
       }
       
