@@ -186,7 +186,6 @@ const Home = () => {
                 h-6
                 p-0
                 bg-white
-
                     "
                 id="customRange1"
               />
@@ -210,7 +209,6 @@ const Home = () => {
                 h-6
                 p-0
                 bg-white
-
                     "
                 id="customRange1"
               />
