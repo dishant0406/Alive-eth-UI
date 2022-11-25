@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { useMediaQuery } from 'react-responsive'
 import logo from '/assets/Main/Images/Logo.svg'
-import Rocket from '/assets/Main/Images/Rocketc.svg'
+import Rocket from '/assets/Main/Images/JetPackc.svg'
 import sampleImage from '/assets/Main/Images/image2.png'
 import notification from '/assets/Main/Images/notifications.svg'
 import Star from '/assets/Main/Images/Star.svg'
@@ -37,8 +37,8 @@ const Campaign = () => {
   }, [isTabletOrMobile])
 
   return (
-    <div className='h-[100vh] flex flex-col justify-between w-[100vw] bg-white'>
-      <div className='w-[100vw] h-[370px] justify-center gap-[2rem] flex flex-col items-center bg-gray alivebottomborderMob'>
+    <div className='h-[100vh] flex flex-col justify-start w-[100vw] bg-white'>
+      <div className='w-[100vw] h-[370px] justify-center gap-[2rem] mb-[27px] flex flex-col items-center bg-gray alivebottomborderMobReaverse'>
         <div className='w-[100vw] mt-[1rem]  flex justify-center'>
           <Image height={logo.height} alt='Alive Logo' width={logo.width} src={logo.src} />
         </div>
@@ -52,28 +52,29 @@ const Campaign = () => {
         </div>
         }
       </div>
-      <div className='w-[100%] flex justify-center'>
-        <Slider {...settings} className='w-[20rem] h-[10rem] '>
-          <div className='w-[20rem] claimcard h-[10rem] overflow-hidden border border-gray relative bg-green'>
-            <img src={Rocket.src} className='absolute h-[10rem] bottom-[-1.6rem] right-[1rem] ' />
-            <p style={{ lineHeight: '28px' }} className='text-[26px] w-[10rem] ml-[1rem] font-[Citizen-OT-Medium] font-[700] '>Claim your jetpack now</p>
-            <button className='px-[1rem] ml-[1rem] h-[3rem] text-[18px] font-[700] bg-yellow border border-gray'>claim</button>
-          </div>
-          <div className='w-[20rem] h-[10rem] claimcard overflow-hidden border border-gray relative bg-red'>
-            <img src={Star.src} className='absolute h-[10rem] bottom-[-1.6rem] right-[0] ' />
-            <p style={{ lineHeight: '28px' }} className='text-[26px] w-[19rem] ml-[1rem] font-[Citizen-OT-Medium] font-[700] '>Get on the whitelist for a 15% discount</p>
-            <button className='px-[1rem] ml-[1rem] h-[3rem] text-[18px] font-[700] bg-yellow border border-gray'>enroll</button>
-          </div>
-        </Slider>
-      </div>
-      <div className='flex h-[1.5rem] mb-[2rem] w-[100vw] justify-around'>
-        <img src={Discord.src} />
-        <img src={Facebook.src} />
-        <img src={Instagram.src} />
-        <img src={LinkedIn.src} />
-        <img src={Medium.src} />
-        <img src={Twitter.src} />
-
+      <div className='w-[100%] h-[295px] gap-[60px] flex flex-col mt-[40px]'>
+        <div className='w-[100%] flex justify-center'>
+          <Slider {...settings} className='w-[301px] h-[10rem] '>
+            <div className='w-[301px] claimcard h-[150px] overflow-hidden border border-gray relative bg-green'>
+              <img src={Rocket.src} className='absolute h-[150px] bottom-[-1.6rem] right-[1rem] ' />
+              <p style={{ lineHeight: '28px', letterSpacing: '0.025em' }} className='text-[26px] text-gray w-[10rem] ml-[20px] font-[Citizen-OT-Medium] font-[700] '>Claim your jetpack now</p>
+              <button style={{ fontFamily: 'Nuform Sans' }} className='px-[12px] ml-[20px] py-[6px] text-[16px] text-gray font-[500] bg-yellow border border-gray'>claim</button>
+            </div>
+            {/* <div className='w-[20rem] h-[10rem] claimcard overflow-hidden border border-gray relative bg-red'>
+              <img src={Star.src} className='absolute h-[10rem] bottom-[-1.6rem] right-[0] ' />
+              <p style={{ lineHeight: '28px' }} className='text-[26px] w-[19rem] ml-[1rem] font-[Citizen-OT-Medium] font-[700] '>Get on the whitelist for a 15% discount</p>
+              <button className='px-[1rem] ml-[1rem] h-[3rem] text-[18px] font-[700] bg-yellow border border-gray'>enroll</button>
+            </div> */}
+          </Slider>
+        </div>
+        <div className='flex w-[100vw] items-center justify-center gap-[2rem]'>
+          <img className='h-[20px]' src={Facebook.src} />
+          <img className='h-[20px]' src={Twitter.src} />
+          <img className='h-[20px]' src={Instagram.src} />
+          <img className='h-[20px]' src={LinkedIn.src} />
+          <img className='h-[20px]' src={Discord.src} />
+          <img className='h-[20px]' src={Medium.src} />
+        </div>
       </div>
     </div>
   )
