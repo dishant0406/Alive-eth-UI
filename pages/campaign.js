@@ -38,7 +38,7 @@ const Campaign = () => {
 
   return (
     <div className='h-[100vh] flex flex-col justify-between w-[100vw] bg-white'>
-      <div className='w-[100vw] h-[486px] justify-center gap-[2rem] flex flex-col items-center bg-gray alivebottomborderMob'>
+      <div className='w-[100vw] h-[370px] justify-center gap-[2rem] flex flex-col items-center bg-gray alivebottomborderMob'>
         <div className='w-[100vw] mt-[1rem]  flex justify-center'>
           <Image height={logo.height} alt='Alive Logo' width={logo.width} src={logo.src} />
         </div>
