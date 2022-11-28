@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
-function Remix() {
+function Mint() {
   return (
     <div className="bg-gray h-[100vh] w-full">
       <div className="flex flex-col justify-center items-center tracking-[0.08em]">
@@ -15,10 +15,19 @@ function Remix() {
           <p className="text-xl">SHARE TO ORIGINAL</p>
         </div>
         <div className="text-green flex items-center font-bold">
-          <div className="py-4 px-5 border-[1px] border-white">0.5%</div>
-          <div className="py-4 px-5 border-[1px] border-white">10%</div>
-          <div className="py-4 px-5 border-[1px] border-white">20%</div>
-          <div className="py-4 px-5 border-[1px] border-white">30%</div>
+          <div className="py-4 px-5 border-[1px] border-white">5%</div>
+          <div className="py-4 px-5 border-[1px] border-white">7%</div>
+          <div className="py-4 px-5 border-[1px] border-white">8%</div>
+          <div className="py-4 px-5 border-[1px] border-white">15%</div>
+        </div>
+      </div>
+
+      <div className="flex justify-center items-center space-x-16 text-4xl pt-16 tracking-[0.08em]">
+        <div className="text-white">
+          <p>Alive</p>
+        </div>
+        <div className="text-green flex items-center font-bold">
+          <div className="py-4 px-5 border-[1px] border-white">+20%</div>
         </div>
       </div>
 
@@ -31,7 +40,7 @@ function Remix() {
           <p>YOUR SHARES</p>
         </div>
         <div className="text-green flex items-center text-2xl font-bold">
-          <div className="py-4 px-5 border-[1px] border-white">70%</div>
+          <div className="py-4 px-5 border-[1px] border-white">45%</div>
         </div>
         <div>
           <Link href="/metadata">
@@ -43,6 +52,9 @@ function Remix() {
       </div>
     </div>
   );
+  // ) : (
+  //   <div>Please remix the songs first</div>
+  // );
 }
 
-export default Remix;
+export default Mint;

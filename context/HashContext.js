@@ -6,6 +6,7 @@ export function HashContextProvider({ children }) {
   const [audioHash, setAudioHash] = useState();
   const [imageHash, setImageHash] = useState();
   const [jsonHash, setJsonHash] = useState();
+  const [splitWalletAddress, setSplitWalletAddress] = useState()
 
   return (
     <HashContext.Provider
@@ -15,7 +16,7 @@ export function HashContextProvider({ children }) {
         jsonHash,
         setAudioHash,
         setImageHash,
-        setJsonHash,
+        setJsonHash
       }}
     >
       {" "}
