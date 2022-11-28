@@ -91,7 +91,7 @@ const Home = () => {
         });
 
         const fileHash = `https://gateway.pinata.cloud/ipfs/${resFile.data.IpfsHash}`;
-        setAudioHash(fileHash);
+        await setAudioHash(fileHash);
         console.log("pinata audio", fileHash);
         //Take a look at your Pinata Pinned section, you will see a new file added to you list.
       } catch (error) {
