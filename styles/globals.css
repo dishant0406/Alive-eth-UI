@@ -118,6 +118,11 @@ code {
     0 17.44px 0 0 #fbd200, 0 17.94px 1px 0 #242430, 0 25.99px 0 0 #ff665c,
     0 26.49px 1px 0 #242430;
 }
+
+.slick-list {margin: 0 -5px;}
+.slick-slide>div {padding: 0 5px;}
+/* .slick-list{padding:0 20% 0 0 !important;} */
+
 .alivevideo[data-isOpen="true"] {
   box-shadow: 0 0 0 0 #000;
   width: 100vw;
