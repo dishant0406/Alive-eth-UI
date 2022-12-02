@@ -11,10 +11,13 @@
   "dependencies": {
     "@headlessui/react": "^1.7.4",
     "@heroicons/react": "^1.0.6",
+    "@moralisweb3/common-evm-utils": "^2.8.0",
+    "@moralisweb3/evm-utils": "^2.8.0",
     "axios": "^1.2.0",
     "crunker": "^2.0.0",
     "ethers": "^5.7.2",
     "lodash": "^4.17.21",
+    "moralis": "^2.8.0",
     "next": "13.0.3",
     "react": "18.2.0",
     "react-audio-player": "^0.17.0",

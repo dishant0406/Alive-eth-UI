@@ -137,6 +137,28 @@
     align-items: flex-start;
     justify-content: space-around;
   }
+
+  .mountsholder {
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: #242430;
+    }
+    
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: #505059;
+    }
+    
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+  }
+
   .MobThumbailBottomBorder {
     height: 10px;
     border: 1px solid #242430;

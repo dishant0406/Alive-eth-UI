@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CustomButton from "../components/CustomButton";
 import SafariModal from "../packages/Modals/SelectModal";
 import cd from "/assets/Main/Images/CD.svg";
@@ -52,6 +52,10 @@ const Home = () => {
   const [progress, setProgress] = useState("");
   const [realBlob, setRealBlob] = useState();
   const router = useRouter();
+  const [metaDataLoadVocal, setMetaDataLoadVocal] = useState(false)
+  const [metaDataLoadKeys, setMetaDataLoadKeys] = useState(false)
+  const [metaDataLoadBass, setMetaDataLoadBass] = useState(false)
+  const [metaDataLoadDrum, setMetaDataLoadDrum] = useState(false)
 
   const { setAudioHash } = UseHash();
 
@@ -272,6 +276,12 @@ const Home = () => {
     });
   };
 
+  useEffect(() => {
+    if (metaDataLoadBass && metaDataLoadDrum && metaDataLoadKeys && metaDataLoadVocal) {
+      handlePlay()
+    }
+  }, [metaDataLoadBass, metaDataLoadDrum, metaDataLoadKeys, metaDataLoadVocal])
+
   return (
     <div className="bg-white relative h-screen w-screen">
       <ToastContainer
@@ -324,7 +334,7 @@ const Home = () => {
           text={"Drum"}
         />
       </div>
-      <GetStarted handlePlay={handlePlay} />
+      {/* <GetStarted handlePlay={() => { }} /> */}
       <div className="w-[100vw] flex justify-center mt-[3rem]">
         <div className="min-w-[25rem] gap-[1rem] px-[1rem] h-[4rem] flex justify-center items-center border border-gray rounded-[50px]">
           <img className={progress && `animate-spin`} src={cd.src} />
@@ -478,6 +488,12 @@ const Home = () => {
             ref={(el) => (vocalRef.current[idex] = el)}
             volume={+volumes.vocal}
             muted={single.muted}
+            onLoadedMetadata={(e) => {
+              if (idex === 5) {
+                console.log({ idex })
+                setMetaDataLoadVocal(true)
+              }
+            }}
             playsinline
             loop={true}
             src={single.path}
@@ -492,6 +508,12 @@ const Home = () => {
             volume={+volumes.bass}
             muted={single.muted}
             playsinline
+            onLoadedMetadata={(e) => {
+              if (idex === 5) {
+                console.log({ idex })
+                setMetaDataLoadBass(true)
+              }
+            }}
             loop={true}
             src={single.path}
           />
@@ -504,6 +526,12 @@ const Home = () => {
             ref={(el) => (drumRef.current[idex] = el)}
             volume={+volumes.drum}
             muted={single.muted}
+            onLoadedMetadata={(e) => {
+              if (idex === 5) {
+                console.log({ idex })
+                setMetaDataLoadDrum(true)
+              }
+            }}
             playsinline
             loop={true}
             src={single.path}
@@ -517,6 +545,12 @@ const Home = () => {
             ref={(el) => (guitarRef.current[idex] = el)}
             volume={+volumes.keys}
             muted={single.muted}
+            onLoadedMetadata={(e) => {
+              if (idex === 5) {
+                console.log({ idex })
+                setMetaDataLoadKeys(true)
+              }
+            }}
             playsinline
             loop={true}
             src={single.path}

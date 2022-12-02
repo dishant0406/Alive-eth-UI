@@ -2,16 +2,40 @@ import React from 'react'
 import search from '../assets/Search_Stroke.svg'
 import SongCard from '../components/SongCard'
 import { contract } from '../ether/SongFactory'
-import { useEffect } from 'react';
-
+import { useEffect, useState } from 'react';
+import Moralis from "moralis";
+import axios from 'axios';
 
 const Marketplace = () => {
+
+  const [songArr, setSongsArr] = useState([])
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     (
       async () => {
+        setLoading(true)
         let songs = await contract.getAllSongs();
-        console.log("songs", songs);
+
+        const chain = 137
+        const tokenId = 1
+        let songsarr = []
+        await Promise.all(songs.map(async (song) => {
+          const response = await Moralis.EvmApi.nft.getNFTMetadata({
+            address: song.songContract.toLowerCase(),
+            chain,
+            tokenId,
+          });
+
+          if (response) {
+            const { data } = await axios.get(response.jsonResponse.token_uri)
+            let newData = { ...data, id: song.songContract.toLowerCase(), hello: 'world' }
+            songsarr.push(newData)
+          }
+        }))
+
+        setSongsArr(songsarr)
+        setLoading(false)
       }
     )()
   }, [])
@@ -35,14 +59,10 @@ const Marketplace = () => {
         </div>
       </div>
       <div>
-        <div className='w-[100vw] flex justify-center gap-[3rem] flex-wrap pt-[4-0vh] md:pt-[5rem] pt-[40vh] pb-[5rem] px-[2rem] min-h-[100vh] bg-gray'>
-          <SongCard />
-          <SongCard />
-          <SongCard />
-          <SongCard />
-          <SongCard />
-          <SongCard />
-          <SongCard />
+        <div className={`w-[100vw] flex justify-center gap-[3rem] flex-wrap pt-[4-0vh] md:pt-[5rem] pt-[40vh] pb-[5rem] px-[2rem] ${loading ? 'h-[60vh]' : 'h-fit'} bg-gray`}>
+          {songArr.map(song => {
+            return <SongCard id={song.id} name={song.name} artist={song.artist} image={song.artwork.uri} />
+          })}
         </div>
       </div>
     </div>
