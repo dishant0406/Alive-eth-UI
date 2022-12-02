@@ -512,7 +512,7 @@ const Home = () => {
             ref={(el) => (vocalRef.current[idex] = el)}
             volume={+volumes.vocal}
             muted={single.muted}
-            onLoadedMetadata={(e) => {
+            onCanPlay={(e) => {
               if (idex === 5) {
                 console.log(e)
                 console.log({ idex })
@@ -533,7 +533,7 @@ const Home = () => {
             volume={+volumes.bass}
             muted={single.muted}
             playsinline
-            onLoadedMetadata={(e) => {
+            onCanPlay={(e) => {
               if (idex === 5) {
                 console.log(e)
                 console.log({ idex })
@@ -552,7 +552,7 @@ const Home = () => {
             ref={(el) => (drumRef.current[idex] = el)}
             volume={+volumes.drum}
             muted={single.muted}
-            onLoadedMetadata={(e) => {
+            onCanPlay={(e) => {
               if (idex === 5) {
                 console.log(e)
                 console.log({ idex })
@@ -572,7 +572,7 @@ const Home = () => {
             ref={(el) => (guitarRef.current[idex] = el)}
             volume={+volumes.keys}
             muted={single.muted}
-            onLoadedMetadata={(e) => {
+            onCanPlay={(e) => {
               if (idex === 5) {
                 console.log(e)
                 console.log({ idex })
