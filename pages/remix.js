@@ -279,26 +279,18 @@ const Home = () => {
     if (metaDataLoadDrum, metaDataLoadBass, metaDataLoadVocal, metaDataLoadKeys) {
       handlePlay()
       vocalRef.current.map((el) => {
-
-        console.log(el.audioEl.current.currentTime)
         console.log(el.audioEl.current.duration)
 
       });
       guitarRef.current.map((el) => {
-
-        console.log(el.audioEl.current.currentTime)
         console.log(el.audioEl.current.duration)
 
       });
       bassRef.current.map((el) => {
-
-        console.log(el.audioEl.current.currentTime)
         console.log(el.audioEl.current.duration)
 
       });
       drumRef.current.map((el) => {
-
-        console.log(el.audioEl.current.currentTime)
         console.log(el.audioEl.current.duration)
 
       });
@@ -512,6 +504,7 @@ const Home = () => {
             volume={+volumes.vocal}
             muted={single.muted}
             onLoadedMetadata={(e) => {
+              console.log(e)
               setMetaDataLoadVocal(prev => prev + 1)
             }}
             playsinline
@@ -529,6 +522,7 @@ const Home = () => {
             muted={single.muted}
             playsinline
             onLoadedMetadata={(e) => {
+              console.log(e)
               setMetaDataLoadBass(prev => prev + 1)
             }}
             loop={true}
@@ -544,6 +538,7 @@ const Home = () => {
             volume={+volumes.drum}
             muted={single.muted}
             onLoadedMetadata={(e) => {
+              console.log(e)
               setMetaDataLoadDrum(prev => prev + 1)
             }}
             playsinline
@@ -560,6 +555,7 @@ const Home = () => {
             volume={+volumes.keys}
             muted={single.muted}
             onLoadedMetadata={(e) => {
+              console.log(e)
               setMetaDataLoadKeys(prev => prev + 1)
             }}
 
