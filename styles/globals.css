@@ -91,9 +91,9 @@ code {
 }
 
 .aliveborder {
-  width: 120rem;
+  /* width: 120rem;
   border-radius: 40rem;
-  overflow: hidden;
+  overflow: hidden; */
   box-shadow: 0 0 0 0.5px #000, 0 0 0 15px #ff665c, 0 0 0 15.5px #000,
     0 0 0 31px #fbd200, 0 0 0 31.5px #000, 0 0 0 46px #53e1ad, 0 0 0 46.5px #000;
 }
