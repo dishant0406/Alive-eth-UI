@@ -276,7 +276,7 @@ const Home = () => {
   };
 
   useEffect(() => {
-    if (metaDataLoadDrum, metaDataLoadBass, metaDataLoadVocal, metaDataLoadKeys) {
+    if (metaDataLoadDrum === 6 && metaDataLoadBass === 6 && metaDataLoadVocal === 6 && metaDataLoadKeys === 6) {
       handlePlay()
       vocalRef.current.map((el) => {
         console.log(el.audioEl.current.duration)
