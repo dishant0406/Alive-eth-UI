@@ -295,7 +295,7 @@ const Home = () => {
 
       });
     }
-  }, [metaDataLoadDrum, metaDataLoadBass, metaDataLoadVocal, metaDataLoadKeys === 6])
+  }, [metaDataLoadDrum, metaDataLoadBass, metaDataLoadVocal, metaDataLoadKeys])
 
   return (
     <div className="bg-white relative h-screen w-screen">
