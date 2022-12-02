@@ -52,11 +52,10 @@ const Home = () => {
   const [progress, setProgress] = useState("");
   const [realBlob, setRealBlob] = useState();
   const router = useRouter();
-  const [metaDataLoadVocal, setMetaDataLoadVocal] = useState(false)
-  const [metaDataLoadKeys, setMetaDataLoadKeys] = useState(false)
-  const [metaDataLoadBass, setMetaDataLoadBass] = useState(false)
-  const [metaDataLoadDrum, setMetaDataLoadDrum] = useState(false)
-
+  const [metaDataLoadVocal, setMetaDataLoadVocal] = useState(0)
+  const [metaDataLoadKeys, setMetaDataLoadKeys] = useState(0)
+  const [metaDataLoadBass, setMetaDataLoadBass] = useState(0)
+  const [metaDataLoadDrum, setMetaDataLoadDrum] = useState(0)
   const { setAudioHash } = UseHash();
 
   const redirectToMint = async () => {
@@ -277,7 +276,7 @@ const Home = () => {
   };
 
   useEffect(() => {
-    if (metaDataLoadBass && metaDataLoadDrum && metaDataLoadKeys && metaDataLoadVocal) {
+    if (metaDataLoadDrum, metaDataLoadBass, metaDataLoadVocal, metaDataLoadKeys) {
       handlePlay()
       vocalRef.current.map((el) => {
 
@@ -304,7 +303,7 @@ const Home = () => {
 
       });
     }
-  }, [metaDataLoadBass, metaDataLoadDrum, metaDataLoadKeys, metaDataLoadVocal])
+  }, [metaDataLoadDrum, metaDataLoadBass, metaDataLoadVocal, metaDataLoadKeys === 6])
 
   return (
     <div className="bg-white relative h-screen w-screen">
@@ -513,11 +512,7 @@ const Home = () => {
             volume={+volumes.vocal}
             muted={single.muted}
             onLoadedMetadata={(e) => {
-              if (idex === 5) {
-                console.log(e)
-                console.log({ idex })
-                setMetaDataLoadVocal(true)
-              }
+              setMetaDataLoadVocal(prev => prev + 1)
             }}
             playsinline
             loop={true}
@@ -534,11 +529,7 @@ const Home = () => {
             muted={single.muted}
             playsinline
             onLoadedMetadata={(e) => {
-              if (idex === 5) {
-                console.log(e)
-                console.log({ idex })
-                setMetaDataLoadBass(true)
-              }
+              setMetaDataLoadBass(prev => prev + 1)
             }}
             loop={true}
             src={single.path}
@@ -553,11 +544,7 @@ const Home = () => {
             volume={+volumes.drum}
             muted={single.muted}
             onLoadedMetadata={(e) => {
-              if (idex === 5) {
-                console.log(e)
-                console.log({ idex })
-                setMetaDataLoadDrum(true)
-              }
+              setMetaDataLoadDrum(prev => prev + 1)
             }}
             playsinline
             loop={true}
@@ -573,11 +560,7 @@ const Home = () => {
             volume={+volumes.keys}
             muted={single.muted}
             onLoadedMetadata={(e) => {
-              if (idex === 5) {
-                console.log(e)
-                console.log({ idex })
-                setMetaDataLoadKeys(true)
-              }
+              setMetaDataLoadKeys(prev => prev + 1)
             }}
 
             playsinline
