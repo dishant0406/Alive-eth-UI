@@ -926,14 +926,14 @@ const RemixNft = () => {
   }, []);
 
   async function getNFTDATA() {
-    let contractAddress = "0x53931108aaa6c7a2018fc2f215d02ce510a67944";
+    let contractAddress = id;
     const accounts = await window.ethereum.request({
       method: "eth_requestAccounts",
     });
     console.log("accounts connect, address = ", accounts[0]);
     let provider = new ethers.providers.Web3Provider(window.ethereum);
     let signer = provider.getSigner();
-  
+
     let smartContract = new ethers.Contract(contractAddress, abi, signer);
 
     let nftData = await smartContract.getNFTData(1, accounts[0]);
@@ -946,29 +946,29 @@ const RemixNft = () => {
   }
   async function mint() {
     try {
-      
-   
-    let contractAddress = "0x53931108aaa6c7a2018fc2f215d02ce510a67944";
-    const accounts = await window.ethereum.request({
-      method: "eth_requestAccounts",
-    });
-    console.log("accounts connect, address = ", accounts[0]);
-    let provider = new ethers.providers.Web3Provider(window.ethereum);
-    let signer =  provider.getSigner();
-   
-    let smartContract = new ethers.Contract(contractAddress, abi, signer);
 
-    let nftData = await smartContract.getNFTData(1, accounts[0]);
-    let price = nftData._price;
 
-    let mintTxn = await smartContract.mint(accounts[0], 1, { value: price });
-    let receipt = await mintTxn.wait();
-    console.log("hash", mintTxn.hash);
-    // let tokenID = receipt.events.filter(event => event.event == 'splitExist')[0].args[0]; //
-    // console.log('Address2', Address2);
-  } catch (error) {
+      let contractAddress = id;
+      const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
+      console.log("accounts connect, address = ", accounts[0]);
+      let provider = new ethers.providers.Web3Provider(window.ethereum);
+      let signer = provider.getSigner();
+
+      let smartContract = new ethers.Contract(contractAddress, abi, signer);
+
+      let nftData = await smartContract.getNFTData(1, accounts[0]);
+      let price = nftData._price;
+
+      let mintTxn = await smartContract.mint(accounts[0], 1, { value: price });
+      let receipt = await mintTxn.wait();
+      console.log("hash", mintTxn.hash);
+      // let tokenID = receipt.events.filter(event => event.event == 'splitExist')[0].args[0]; //
+      // console.log('Address2', Address2);
+    } catch (error) {
       console.log("error - ", error)
-  }
+    }
   }
 
   useEffect(() => {

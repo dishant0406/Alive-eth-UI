@@ -56,6 +56,7 @@ const Home = () => {
   const [metaDataLoadKeys, setMetaDataLoadKeys] = useState(0)
   const [metaDataLoadBass, setMetaDataLoadBass] = useState(0)
   const [metaDataLoadDrum, setMetaDataLoadDrum] = useState(0)
+  const [loading, setLoading] = useState(true)
   const { setAudioHash } = UseHash();
 
   const redirectToMint = async () => {
@@ -273,6 +274,8 @@ const Home = () => {
       console.log(el);
       el.audioEl.current.play();
     });
+
+    setLoading(false)
   };
 
   useEffect(() => {
@@ -296,6 +299,7 @@ const Home = () => {
       });
     }
   }, [metaDataLoadDrum, metaDataLoadBass, metaDataLoadVocal, metaDataLoadKeys])
+
 
   return (
     <div className="bg-white relative h-screen w-screen">
@@ -349,7 +353,7 @@ const Home = () => {
           text={"Drum"}
         />
       </div>
-      {/* <GetStarted handlePlay={() => { }} /> */}
+      {loading && <GetStarted handlePlay={() => { }} />}
       <div className="w-[100vw] flex justify-center mt-[3rem]">
         <div className="min-w-[25rem] gap-[1rem] px-[1rem] h-[4rem] flex justify-center items-center border border-gray rounded-[50px]">
           <img className={progress && `animate-spin`} src={cd.src} />

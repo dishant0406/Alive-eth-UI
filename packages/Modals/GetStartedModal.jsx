@@ -11,8 +11,8 @@ export default function GetStarted({handlePlay=()=>{}}) {
   const cancelButtonRef = useRef(null);
 
   const dismiss = () => {
-    setOpen(false);
-    handlePlay()
+    // setOpen(false);
+    // handlePlay()
   };
 
   return (
