@@ -59,16 +59,15 @@ export default function GetStarted({handlePlay=()=>{}}) {
                       as="h3"
                       className="text-2xl leading-6 font-medium text-gray"
                     >
-                      Get Stated 
+                      Please wait
                     </Dialog.Title>
                     <div className="mt-2">
                       <p
                         className="text-lg text-gray"
                         style={{ fontFamily: "Nuform Sans" }}
                       >
-                        Let's make a remix
+                        We are fetching all the songs...
                       </p>
-                      <button onClick={dismiss} className="bg-yellow border border-gray font-[700] mt-[1rem] py-[0.5rem] px-[1rem]">Enter</button>
                     </div>
                   </div>
                 </div>
