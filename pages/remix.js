@@ -19,6 +19,9 @@ import { useRef } from "react";
 import GetStarted from "../packages/Modals/GetStartedModal";
 import { UseHash } from "../context/HashContext";
 import ReactTooltip from "react-tooltip";
+import DownloadModal from "../packages/Modals/DownloadModal";
+import { downloadBlob } from "../packages/Utility/downloadBlob";
+import FileSaver from "file-saver";
 
 const songnames = [
   "/Songs/Song-Bass_(COMMERCIAL)_1.mp3",
@@ -57,6 +60,8 @@ const Home = () => {
   const [metaDataLoadKeys, setMetaDataLoadKeys] = useState(0)
   const [metaDataLoadBass, setMetaDataLoadBass] = useState(0)
   const [metaDataLoadDrum, setMetaDataLoadDrum] = useState(0)
+  const [downloadOpen, setDownloadOpen] = useState(false)
+  const [songName, setSongName] = useState('')
   const [loading, setLoading] = useState(true)
   const { setAudioHash, pageState } = UseHash();
 
@@ -83,6 +88,12 @@ const Home = () => {
       toast('Cant mint remix without "COMMERCIAL_NOHATE" or "COMMERCIAL" !');
     }
   };
+
+  const download = () => {
+    FileSaver.saveAs(realBlob, `${songName}.mp3`)
+    setDownloadOpen(false)
+    setSongName('')
+  }
 
   const sendFileToIPFS = async (e) => {
     if (realBlob) {
@@ -361,8 +372,9 @@ const Home = () => {
         />
       </div>
       {loading && <GetStarted handlePlay={() => { }} />}
+      <DownloadModal handlePlay={download} open={downloadOpen} setOpen={setDownloadOpen} songName={songName} setSongName={setSongName} />
       <div className="w-[100vw] flex justify-center mt-[3rem]">
-        <div className="min-w-[25rem] gap-[1rem] px-[1rem] h-[4rem] flex justify-center items-center border border-gray rounded-[50px]">
+        {/* <div className="min-w-[25rem] gap-[1rem] px-[1rem] h-[4rem] flex justify-center items-center border border-gray rounded-[50px]">
           <img className={progress && `animate-spin`} src={cd.src} />
           <div className="h-[5px] w-[20rem] bg-gray">
             <div
@@ -373,11 +385,12 @@ const Home = () => {
           <p className="text-[12px]">
             {progress !== "" ? `${progress}/${duration}` : "No Remix"}
           </p>
-        </div>
+        </div> */}
+
       </div>
       <div className="mt-[2rem] flex flex-col gap-[2rem] items-center w-[100vw]">
         <div className="w-[40rem] flex gap-[2rem] flex-col items-end">
-          <div className="flex gap-[1rem] items-center">
+          <div className="flex gap-[1rem]  items-center">
             <div className="font-[Citizen-OT-Medium] text-[26px] text-gray font-[700]">
               Vocal
             </div>
@@ -406,7 +419,7 @@ const Home = () => {
               />
             </div>
           </div>
-          <div className="flex gap-[1rem] items-center">
+          <div className="flex gap-[1rem]  items-center">
             <div className="font-[Citizen-OT-Medium] text-[26px] text-gray font-[700]">
               keys
             </div>
@@ -436,7 +449,7 @@ const Home = () => {
               />
             </div>
           </div>
-          <div className="flex gap-[1rem] items-center">
+          <div className="flex gap-[1rem]  items-center">
             <div className="font-[Citizen-OT-Medium] text-[26px] text-gray font-[700]">
               Bass
             </div>
@@ -466,7 +479,7 @@ const Home = () => {
               />
             </div>
           </div>
-          <div className="flex gap-[1rem] items-center">
+          <div className="flex gap-[1rem]  items-center">
             <div className="font-[Citizen-OT-Medium] text-[26px] text-gray font-[700]">
               Drum
             </div>
@@ -498,7 +511,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className="w-[100vw] flex gap-[2rem] justify-center mt-[2rem]">
+      <div className="w-[100vw] flex gap-[2rem] flex-wrap justify-center mt-[2rem]">
         <button
           onClick={redirectToMint}
           className="font-[Citizen-OT-Medium] flex items-center justify-center h-[4rem] w-[10rem] bg-yellow border border-gray text-[26px] text-gray font-[700]"
@@ -513,6 +526,12 @@ const Home = () => {
             reload
           </button>
         </a>
+        <button
+          onClick={() => setDownloadOpen(true)} disabled={realBlob ? false : true}
+          className={`font-[Citizen-OT-Medium] ${realBlob ? '' : 'opacity-[0.5]'} flex items-center justify-center h-[4rem] w-[20rem] bg-yellow border border-gray text-[26px] text-gray font-[700]`}
+        >
+          download the remix
+        </button>
         <ReactTooltip id="info">Facing audio syncing issue, try reloading</ReactTooltip>
       </div>
 
