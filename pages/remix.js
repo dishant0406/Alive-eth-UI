@@ -146,7 +146,7 @@ const Home = () => {
       {
         muted: true,
         name: "COMMERCIAL_NOHATE",
-        path: "/Songs/Song-Keys_(COMMERCIAL_NOHATE).mp3",
+        path: "/Songs/Song-Keys_(COMMERCIAL_NOHATE)_1.mp3",
       },
       {
         muted: true,
@@ -178,7 +178,7 @@ const Home = () => {
       {
         muted: true,
         name: "COMMERCIAL_NOHATE",
-        path: "/Songs/Song-Keys_(COMMERCIAL_NOHATE)_2.mp3",
+        path: "/Songs/Song-Bass_(COMMERCIAL_NOHATE)_1.mp3",
       },
       {
         muted: true,
