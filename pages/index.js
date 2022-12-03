@@ -1,10 +1,17 @@
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
+import { UseHash } from "../context/HashContext";
 import nft_license from "/assets/Main/Images/nft_license.png";
 
 const Home = () => {
+  const { setPageState } = UseHash()
+
+  useEffect(() => {
+    setPageState(true)
+  }, [])
+
   return (
-     <div className="bg-white flex justify-center relative h-full w-screen]">
+    <div className="bg-white flex justify-center relative h-full w-screen]">
       <div className="p-10">
         <h1 className=" text-center text-4xl">
           The a.live remix tool allows you to mashup any pieces of music

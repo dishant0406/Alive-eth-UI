@@ -57,7 +57,13 @@ const Home = () => {
   const [metaDataLoadBass, setMetaDataLoadBass] = useState(0)
   const [metaDataLoadDrum, setMetaDataLoadDrum] = useState(0)
   const [loading, setLoading] = useState(true)
-  const { setAudioHash } = UseHash();
+  const { setAudioHash, pageState } = UseHash();
+
+  useEffect(() => {
+    if (pageState === false) {
+      router.push("/")
+    }
+  }, [])
 
   const redirectToMint = async () => {
     if (
