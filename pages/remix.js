@@ -18,6 +18,7 @@ import ReactAudioPlayer from "react-audio-player";
 import { useRef } from "react";
 import GetStarted from "../packages/Modals/GetStartedModal";
 import { UseHash } from "../context/HashContext";
+import ReactTooltip from "react-tooltip";
 
 const songnames = [
   "/Songs/Song-Bass_(COMMERCIAL)_1.mp3",
@@ -497,13 +498,22 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className="w-[100vw] flex justify-center mt-[2rem]">
+      <div className="w-[100vw] flex gap-[2rem] justify-center mt-[2rem]">
         <button
           onClick={redirectToMint}
           className="font-[Citizen-OT-Medium] flex items-center justify-center h-[4rem] w-[10rem] bg-yellow border border-gray text-[26px] text-gray font-[700]"
         >
           next
         </button>
+        <a data-tip data-for='info'>
+          <button
+            onClick={() => window.location.reload()}
+            className="font-[Citizen-OT-Medium] flex items-center justify-center h-[4rem] w-[10rem] bg-green border border-gray text-[26px] text-gray font-[700]"
+          >
+            reload
+          </button>
+        </a>
+        <ReactTooltip id="info">Facing audio syncing issue, try reloading</ReactTooltip>
       </div>
 
       {items.vocal.map((single, idex) => {
