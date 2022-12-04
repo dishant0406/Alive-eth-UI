@@ -3,8 +3,8 @@ import InputField from "../components/InputField";
 import axios from "axios";
 import { UseHash } from "../context/HashContext";
 import abi from "../pages/api/band-contract.json";
-import { ethers } from "ethers";
-import _ from "lodash";
+import { BigNumber, ethers } from "ethers";
+import _, { min } from "lodash";
 
 function MetaData() {
   const [file, setFile] = useState();
@@ -96,22 +96,22 @@ function MetaData() {
       );
     }
     let gasData = await Provider.getFeeData();
-    console.log("gasData", gasData);
+    console.log("gasData create", gasData);
 
-    let createWalletTx = await band.createSplitWallet(
-      newArrayOfAccounts,
-      arrayOfPercentageAllocation,
-      { gasLimit: 1000000, gasPrice: gasData.gasPrice }
-    );
-    let txReceipt = await createWalletTx.wait();
-    console.log("txReceipt", txReceipt);
-    let splitResult = txReceipt.events.filter(
-      (event) => event.event == "SplitWalletCreated"
-    )[0];
-    let primarySplitWalletAddress = splitResult.args[0];
-    let primarySplitWalletId = splitResult.args[1];
-    console.log("primarySplitWalletAddress", primarySplitWalletAddress);
-    console.log("primarySplitWalletId", primarySplitWalletId);
+    // let createWalletTx = await band.createSplitWallet(
+    //   newArrayOfAccounts,
+    //   arrayOfPercentageAllocation,
+    //   { gasLimit: 1000000, gasPrice: gasData.gasPrice }
+    // );
+    // let txReceipt = await createWalletTx.wait();
+    // console.log("txReceipt", txReceipt);
+    // let splitResult = txReceipt.events.filter(
+    //   (event) => event.event == "SplitWalletCreated"
+    // )[0];
+    // let primarySplitWalletAddress = splitResult.args[0];
+    // let primarySplitWalletId = splitResult.args[1];
+    // console.log("primarySplitWalletAddress", primarySplitWalletAddress);
+    // console.log("primarySplitWalletId", primarySplitWalletId);
 
     let jsonData = JSON.stringify({
       songName: songName,
@@ -120,7 +120,7 @@ function MetaData() {
       image: imageHash,
       external_link: audioHash,
       seller_fee_basis_points: 1000,
-      fee_recipient: primarySplitWalletAddress,
+      fee_recipient: await signer.getAddress(),
       royalty_fee_for_using_songstems: royaltyFee,
       license_type: licenseType,
     });
@@ -141,7 +141,7 @@ function MetaData() {
       "Json Hash",
       `https://gateway.pinata.cloud/ipfs/${res.data.IpfsHash}`
     );
-    await createNFT(primarySplitWalletAddress);
+    await createNFT(await signer.getAddress());
     setLoading(false);
   };
 
@@ -156,7 +156,7 @@ function MetaData() {
     let signer = provider2.getSigner();
 
     let band = new ethers.Contract(
-      "0xDE1865AB2320F556A9b09CB035e8B3aE232B3663",
+      "0x6F76903D3D4F31eE6f0e9E28840b66044C7eEF37",
       abi.abi,
       managerWallet
     );
@@ -256,18 +256,28 @@ function MetaData() {
     let paramArray = [
       nftCount,
       ethers.utils.parseEther(mintPrice.toString()),
-      100000,
+      100000
     ];
-
+    // let gasData = await Provider.getFeeData();
+    console.log("gasData", gasData,  primarySplitWalletAddress,
+    1000,
+    primarySplitWalletAddress,
+    0,
+    songJsonHash,
+    jsonHash,
+    await signer.getAddress());
     let createWalletNftTx = await band.createFixedSong(
       primarySplitWalletAddress,
       1000,
       primarySplitWalletAddress,
       0,
       songJsonHash,
-      jsonHash,
+      "",
       await signer.getAddress(),
       paramArray
+      ,     
+    { gasLimit: 10000000, gasPrice: gasData.gasPrice.add(ethers.utils.parseUnits("10", "gwei")) }
+
     );
     let txReceipt = await createWalletNftTx.wait();
     console.log("txReceipt", txReceipt);
@@ -278,6 +288,15 @@ function MetaData() {
     let songId = splitResult.args[1];
     console.log("songAddress", songAddress);
     console.log("songId", songId);
+
+    const song = new ethers.Contract(songAddress, [
+      "function batchAirDrop(address[], uint256) external"
+    ], managerWallet)
+    const mint = await song.batchAirDrop([primarySplitWalletAddress], 2,  { gasLimit: 10000000, gasPrice: gasData.gasPrice.add(ethers.utils.parseUnits("10", "gwei")) }
+    )
+    console.log("hash", mint.hash)
+    await mint.wait();
+    alert(`done, checkout marketplace , address- ${songAddress}`)
   };
 
   return !loading ? (
