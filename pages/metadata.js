@@ -5,6 +5,7 @@ import { UseHash } from "../context/HashContext";
 import abi from "../pages/api/band-contract.json";
 import { BigNumber, ethers } from "ethers";
 import _, { min } from "lodash";
+import { useEffect } from "react";
 
 function MetaData() {
   const [file, setFile] = useState();
@@ -18,10 +19,21 @@ function MetaData() {
   const [nftCount, setNftCount] = useState();
   const { setImageHash, setJsonHash, audioHash, imageHash, jsonHash } =
     UseHash();
+ 
+    useEffect(async () => {
+      const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
+      console.log("accounts connect, address = ", accounts[0]);    
+    
+    }, [])
+    
 
   const handleLicenseSelect = (e) => {
     setLicenseType(e.target.value);
   };
+
+
 
   const sendImageToIPFS = async (e) => {
     if (file) {
